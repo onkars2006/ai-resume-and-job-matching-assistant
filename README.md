@@ -95,7 +95,7 @@ gunicorn app:app
 ## 🌐 Live Demo
 
 > 🟢 Deployed on **Render**
-> 🔗 Visit: [https://resume-analyzer.onrender.com](https://resume-analyzer.onrender.com) (replace with your actual URL)
+> 🔗 Visit: [https://ai-resume-and-job-matching-assistant.onrender.com/](https://ai-resume-and-job-matching-assistant.onrender.com/)
 
 ---
 
