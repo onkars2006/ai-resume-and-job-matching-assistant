@@ -31,17 +31,6 @@ An intelligent, AI-powered web app that helps users upload their resumes, analyz
 
 ---
 
-## 📁 Project Structure
-
-ai-resume-and-job-matching-assistant/
-├── templates/ (index.html, results.html)
-├── uploads/
-├── app.py
-├── requirements.txt
-├── .gitignore
-└── README.md
-
----
 
 ## ⚙️ How to Run Locally
 
