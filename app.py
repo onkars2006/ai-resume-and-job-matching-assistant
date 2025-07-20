@@ -11,7 +11,7 @@ from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['UPLOAD_FOLDER'] = '/tmp'
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 app.secret_key = os.urandom(24)
 
