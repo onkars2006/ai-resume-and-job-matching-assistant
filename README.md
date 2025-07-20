@@ -1,8 +1,3 @@
-Sure! Here's your **final, clean, and polished README** written in **plain text** for direct copy-paste (not in markdown code blocks), formatted with spacing and emojis for professional appearance. The live app link is included:
-👉 **[https://ai-resume-and-job-matching-assistant.onrender.com/](https://ai-resume-and-job-matching-assistant.onrender.com/)**
-
----
-
 # 🤖 AI Resume & Job Matching Assistant
 
 An intelligent, AI-powered web app that helps users upload their resumes, analyzes them based on a chosen job role using **Gemini 1.5 Flash**, and provides personalized feedback, skill gap insights, resume score, and a downloadable improved version — all within a simple UI.
