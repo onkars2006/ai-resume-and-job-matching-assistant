@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-gradient-primary text-white py-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0" style="color:black;"><i class="fas fa-chart-line me-2"></i>Analysis Results</h3>
+                <span class="badge bg-light text-primary fs-5">{{ job_role }} Role</span>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Score Section -->
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 bg-gradient-success text-white shadow-lg">
+                        <div class="card-body text-center py-4" style="color: black;">
+                            <h4 class="card-title mb-3"><i class="fas fa-star-half-alt"></i> Overall Score</h4>
+                            <div class="display-2 fw-bold mb-2">{{ resume_score }}</div>
+                            <div class="progress bg-white bg-opacity-25" style="height: 4px;">
+                                <div class="progress-bar bg-white" role="progressbar" 
+                                     style="width: {{ resume_score }}%;color:black;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="mb-4"><i class="fas fa-tachometer-alt me-2"></i>Job Readiness Breakdown</h5>
+                            <div class="progress-stacked">
+                                {% for category, score in job_readiness.items() %}
+                                <div class="progress" style="height: 55px;">
+                                    <div class="progress-bar progress-bar-striped bg-{{ loop.cycle('primary','success','info') }} 
+                                         role="progressbar" style="width: {{ score }}%;color:black;">
+                                        <span class="fw-bold" style="color:black;">{{ category|title }} ({{ score }}%)</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line Improvements Section -->
+            <div class="card border-0 shadow mb-5">
+                <div class="card-header bg-warning bg-gradient text-white">
+                    <h5 class="mb-0"><i class="fas fa-magic me-2"></i>Line Improvements</h5>
+                </div>
+                <div class="card-body">
+                    {% for original, improved in line_improvements.items() %}
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border-start-4 border-start-danger">
+                                <div class="card-body">
+                                    <small class="text-muted"><i class="fas fa-comment-dots me-1"></i>Original:</small>
+                                    <p class="mb-0 fst-italic text-dark">{{ original }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100 border-start-4 border-start-success bg-success bg-opacity-10">
+                                <div class="card-body">
+                                    <small class="text-success"><i class="fas fa-rocket me-1"></i>Improved:</small>
+                                    <p class="mb-0 fw-semibold text-success">{{ improved }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Skills & Roles Section -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-primary bg-gradient text-white">
+                            <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Identified Skills</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for skill in skills %}
+                                <span class="badge bg-primary bg-opacity-25 text-primary fs-6 py-2 px-3">
+                                    {{ skill }} <i class="fas fa-check-circle ms-2"></i>
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-info bg-gradient text-white">
+                            <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i>Suggested Roles</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                {% for role in roles %}
+                                <div class="list-group-item d-flex align-items-center">
+                                    <i class="fas fa-caret-right text-info me-3"></i>
+                                    <span class="fw-semibold">{{ role }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gaps & Improvements Section -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-danger bg-gradient text-white">
+                            <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Skill Gaps</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-lightbulb me-2"></i>Focus on these areas to improve your competitiveness
+                            </div>
+                            <ul class="list-unstyled">
+                                {% for gap in gaps %}
+                                <li class="d-flex mb-3">
+                                    <i class="fas fa-angle-double-right text-danger me-2 mt-1"></i>
+                                    <span>{{ gap }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-success bg-gradient text-white">
+                            <h5 class="mb-0"><i class="fas fa-wrench me-2"></i>Resume Improvements</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for imp in improvements %}
+                                <li class="list-group-item d-flex align-items-start">
+                                    <div class="me-3 text-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div>{{ imp }}</div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center mt-5">
+                <div class="d-grid d-md-flex justify-content-center gap-3">
+                    <a href="/download?path={{ docx_path }}" class="btn btn-lg btn-success px-5 py-3">
+                        <i class="fas fa-download me-2"></i>Download Improved Resume
+                    </a>
+                    <a href="/" class="btn btn-lg btn-primary px-5 py-3">
+                        <i class="fas fa-redo me-2"></i>Analyze Another Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

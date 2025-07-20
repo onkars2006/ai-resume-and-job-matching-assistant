@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">AI Resume & Job Matching Assistant</h2>
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="upload-tab" data-bs-toggle="tab" 
+                            data-bs-target="#upload" type="button">Upload Resume</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="paste-tab" data-bs-toggle="tab" 
+                            data-bs-target="#paste" type="button">Paste Text</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content mt-4">
+                <div class="tab-pane fade show active" id="upload">
+                    <form method="POST" enctype="multipart/form-data" action="{{ url_for('analyze') }}" id="uploadForm">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" name="resume" id="resumeUpload" 
+                                   accept=".pdf,.txt,.docx" required>
+                            <div class="form-text">Supported formats: PDF, TXT, DOCX (max 5MB)</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="uploadBtn" disabled>
+                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            Analyze
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="tab-pane fade" id="paste">
+                    <form method="POST" action="{{ url_for('analyze') }}" id="pasteForm">
+                        <div class="mb-3">
+                            <textarea class="form-control" name="resume_text" id="resumeText" rows="8" 
+                                      placeholder="Paste your resume here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="pasteBtn" disabled>
+                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            Analyze
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // File upload validation
+    const uploadInput = document.getElementById('resumeUpload');
+    const uploadBtn = document.getElementById('uploadBtn');
+    
+    uploadInput.addEventListener('change', function() {
+        uploadBtn.disabled = !this.files.length;
+    });
+
+    // Text paste validation
+    const textInput = document.getElementById('resumeText');
+    const pasteBtn = document.getElementById('pasteBtn');
+    
+    textInput.addEventListener('input', function() {
+        pasteBtn.disabled = !this.value.trim();
+    });
+
+    // Form submission handlers
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+        this.querySelector('.spinner-border').classList.remove('d-none');
+        uploadBtn.disabled = true;
+    });
+
+    document.getElementById('pasteForm').addEventListener('submit', function() {
+        this.querySelector('.spinner-border').classList.remove('d-none');
+        pasteBtn.disabled = true;
+    });
+
+    // Tab switch validation
+    document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function(e) {
+            if (e.target.id === 'upload-tab') {
+                uploadBtn.disabled = !uploadInput.files.length;
+            } else {
+                pasteBtn.disabled = !textInput.value.trim();
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.spinner-border {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+textarea:invalid, input:invalid {
+    border-color: #dc3545 !important;
+}
+textarea:valid, input:valid {
+    border-color: #198754 !important;
+}
+</style>
+{% endblock %}
